@@ -9,3 +9,5 @@ const States = () => {
     </div>
   );
 };
+
+export default States;
