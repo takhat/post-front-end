@@ -1,11 +1,7 @@
-import React from 'react'
+import React from "react";
 
-const VA = () => {
-  return (
-    <div>
-      Vermont
-    </div>
-  )
-}
+const va = () => {
+  return <div>Vermont</div>;
+};
 
-export default VA
+export default va;

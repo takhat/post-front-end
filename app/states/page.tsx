@@ -1,12 +1,11 @@
-import React from 'react'
+import React from "react";
+import Link from "next/link";
 
 const States = () => {
-return (
+  return (
     <div>
-    States
+      <h1>States</h1>
+      <Link href="/">Home</Link>
     </div>
-)
-}
-
-export default States;
-
+  );
+};
