@@ -15,14 +15,18 @@
     "d3": "^7.9.0",
     "next": "14.2.5",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "react-toastify": "^10.0.5",
+    "topojson-client": "^3.1.0"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^6.4.8",
     "@testing-library/react": "^16.0.0",
+    "@types/d3": "^7.4.3",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
+    "@types/topojson-client": "^3.1.4",
     "cypress": "^13.13.1",
     "eslint": "^8.57.0",
     "eslint-config-next": "14.2.5",
