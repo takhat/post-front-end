@@ -1,4 +1,4 @@
-@tailwind base;
+/* @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
@@ -24,5 +24,56 @@ body {
 @layer utilities {
   .text-balance {
     text-wrap: balance;
+  }
+} */
+
+/* globals.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  /* Base styles */
+  * {
+    @apply box-border; /* Tailwind applies `box-sizing: border-box` */
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    @apply bg-dark-grey text-white text-center p-10;
+  }
+
+  .title {
+    @apply text-xl my-5; /* Tailwind's spacing utilities */
+  }
+
+  .stats {
+    @apply flex justify-around flex-wrap  my-5;
+  }
+  #state, #agency, #sort-by{
+    @apply text-black;
+  }
+  .options-label {
+    @apply text-lg text-white;
+  }
+  .option{
+    @apply text-black;
+  }
+  .cards {
+    @apply flex flex-wrap justify-center items-center text-black;
+  }
+
+  .officer-card {
+    @apply bg-light-grey p-5 m-3 w-[280px] rounded-15;
+  }
+  .officer-card>h2 {
+    @apply text-lg font-bold;
+  }
+
+  @media (max-width: 768px) {
+    .stats {
+      @apply flex-col;
+    }
   }
 }
