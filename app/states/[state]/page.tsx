@@ -67,9 +67,9 @@ const StatePage = () => {
         <div className="officer-card">
           <h2>Adam A.</h2>
           <p>id: 1</p>
-          <p>Start Date: 2022</p>
-          <p>End Date: 2023</p>
-          <p>Sep. Reason: Certified</p>
+          <p>Start Date: </p>
+          <p>End Date: </p>
+          <p>Sep. Reason: </p>
         </div>
         <div className="officer-card">
           <h2>Tim B.</h2>
