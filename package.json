@@ -12,11 +12,15 @@
     "cypress:open": "cypress open"
   },
   "dependencies": {
+    "@types/topojson": "^3.2.6",
     "d3": "^7.9.0",
+    "mapbox-gl": "^3.5.2",
     "next": "14.2.5",
     "react": "^18",
     "react-dom": "^18",
+    "react-map-gl": "^7.1.7",
     "react-toastify": "^10.0.5",
+    "resize-observer-polyfill": "^1.5.1",
     "topojson-client": "^3.1.0"
   },
   "devDependencies": {
