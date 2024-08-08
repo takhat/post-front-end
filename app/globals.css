@@ -69,6 +69,7 @@ body {
   .officer-card>h3 {
     @apply text-lg font-bold sticky top-0 bg-light-grey;
   }
+  #uid,.uid{@apply sticky top-7 bg-light-grey}
 
   @media (max-width: 768px) {
     .stats {
