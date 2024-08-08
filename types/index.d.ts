@@ -1,9 +1,6 @@
 export interface Officer {
+  id: number;
+  UID: string;
   name: string;
-  id: string;
-  state: string;
-  agencyName: string;
-  startDate: string;
-  endDate: string;
-  separationReason: string;
+  workHistory: WorkHistory[];
 }

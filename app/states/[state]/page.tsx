@@ -2,20 +2,20 @@
 
 import { useRouter, usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
-import { getOfficersByStateAndAgency } from "../../../data/officersData";
-import { Officer } from "../../../types";
+import { getOfficersByAgency } from "../../../data/officersData";
+import { PeaceOfficer } from "../../../data/officersData";
 import OfficerList from "../../components/OfficerList";
 
 const StatePage = () => {
   const router = useRouter();
   const pathname = usePathname();
   const [agency, setAgency] = useState("all");
-  const [officers, setOfficers] = useState<Officer[]>([]);
+  const [officers, setOfficers] = useState<PeaceOfficer[]>([]);
 
   //pagination
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(10);
-  const [totalItems, setTotalItems] = useState(0); // Assume you will get the total items count from API or data source
+  const [totalItems, setTotalItems] = useState(0); 
 
   const state = pathname.split("/")[2];
 
@@ -26,12 +26,7 @@ const StatePage = () => {
   };
   // Fetch officers data
   const fetchOfficers = (page: number, perPage: number) => {
-    const { officers, totalItems } = getOfficersByStateAndAgency(
-      state,
-      agency,
-      page,
-      perPage
-    );
+    const { officers, totalItems } = getOfficersByAgency(agency, page, perPage);
     setOfficers(officers);
     setTotalItems(totalItems);
   };
@@ -42,6 +37,7 @@ const StatePage = () => {
 
   // Pagination handlers
   const handlePageChange = (page: number) => {
+    if (page < 1 || page > totalPages) return; // Ensure page is within valid range
     setCurrentPage(page);
     router.push(`/states/${state}?agency=${agency}&page=${page}`);
   };
@@ -89,15 +85,12 @@ const StatePage = () => {
             <option value="last-name">Last Name</option>
             <option value="first-name">First Name</option>
             <option value="uid">Uid</option>
-            <option value="start-date">Start Date</option>
-            <option value="end-date">End Date</option>
-            <option value="reason">Separation Reason</option>
           </select>
         </div>
       </div>
 
       <div className="cards">
-        <OfficerList officers={officers} />
+        <OfficerList officers={officers} agencyName={agency} />
       </div>
       {/* Pagination Controls */}
       <div className="flex justify-center mt-4 ">
