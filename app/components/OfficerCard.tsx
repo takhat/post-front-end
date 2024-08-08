@@ -16,7 +16,7 @@ const OfficerCard: React.FC<OfficerCardProps> = ({ officer }) => {
         ) : (
           officer.workHistory.map((history: WorkHistory) => (
             <div key={history.id} className="work-history-entry">
-              <p>Agency: {history.agencyName || "Unknown Agency"}</p>
+              <p className="small-text">{history.agencyName || "Unknown Agency"}</p>
               <p>
                 Start Date:{" "}
                 {history.startDate
@@ -30,7 +30,7 @@ const OfficerCard: React.FC<OfficerCardProps> = ({ officer }) => {
                   : "-"}
               </p>
               <p>Separation Reason: {history.separationReason}</p>
-              <p>***</p>
+              <p>---</p>
             </div>
           ))
         )}

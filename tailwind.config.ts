@@ -14,6 +14,9 @@ const config: Config = {
         white: "#ffffff",
         black: "#000",
       },
+      maxHeight: {
+        card: "11rem",
+      },
       spacing: {
         "10": "10px",
         "1.3": "1.3rem",

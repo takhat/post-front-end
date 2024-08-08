@@ -63,12 +63,11 @@ body {
   .cards {
     @apply flex flex-wrap justify-center items-center text-black;
   }
-
   .officer-card,#officer-card {
-    @apply bg-light-grey p-5 m-3 w-[310px] rounded-15;
+    @apply bg-light-grey p-5 m-3 w-[350px] rounded-15 max-h-card overflow-auto;
   }
   .officer-card>h3 {
-    @apply text-lg font-bold;
+    @apply text-lg font-bold sticky top-0 bg-light-grey;
   }
 
   @media (max-width: 768px) {
