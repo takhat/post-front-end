@@ -75,7 +75,7 @@ body {
       @apply flex-col items-stretch;
     }
   }
-  .page-container {
+  /* .page-container {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
@@ -89,12 +89,11 @@ body {
   }
   .officer-card {
     overflow: auto; /* Adds scrollbar to card if content overflows */
-  }
+  /* }
   .pagination {
     display: flex;
     justify-content: center;
     padding: 1rem; /* Adds spacing around pagination controls */
-    background: #333; /* Optional background color */
-  }
-  
+    /* background: #333; /* Optional background color 
+  } */
 }

@@ -11,7 +11,8 @@ export interface WorkHistory {
 export interface PeaceOfficer {
   id: number;
   UID: string;
-  name: string;
+  firstName: string; 
+  lastName: string;
   workHistory: WorkHistory[];
 }
 

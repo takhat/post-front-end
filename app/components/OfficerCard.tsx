@@ -8,7 +8,9 @@ interface OfficerCardProps {
 const OfficerCard: React.FC<OfficerCardProps> = ({ officer }) => {
   return (
     <div className="officer-card">
-      <h3>{officer.name}</h3>
+      <h3>
+        {officer.firstName} {officer.lastName}
+      </h3>
       <p className="uid">UID: {officer.UID}</p>
       <div className="work-history">
         {officer.workHistory.length === 0 ? (
