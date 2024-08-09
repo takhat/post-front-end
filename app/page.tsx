@@ -2,49 +2,54 @@ import Link from "next/link";
 import { Map } from "./components/Map";
 
 // List of states
-const states: string[] = [
-  "AZ",
-  "CA",
-  "FL",
-  "GA",
-  "IL",
-  "MD",
-  "OH",
-  "OR",
-  "SC",
-  "TN",
-  "TX",
-  "VT",
-  "WA",
-];
+const availableStates: Record<string, string> = {
+  Arizona: "AZ",
+  California: "CA",
+  Florida: "FL",
+  Georgia: "GA",
+  Illinois: "IL",
+  Maryland: "MD",
+  Ohio: "OH",
+  Oregon: "OR",
+  "South Carolina": "SC",
+  Tennessee: "TN",
+  Texas: "TX",
+  Vermont: "VT",
+  Washington: "WA",
+};
 
 export default function Home() {
   return (
-    <main>
-      <h1>Police Officer Employment History</h1>
-      <div style={{ width: "100%", maxWidth: "1200px", margin: "0 auto" }}>
-        <Map />
-      </div>
+    <main
+      className={`flex flex-col items-center justify-center min-h-screen space-y-4`}
+      style={{ paddingBottom: "4rem" }} // Additional padding to prevent cutoff
+    >
+      <h1>Peace Officer Employment History Database</h1>
 
-      {/* State buttons */}
       <div
         style={{
-          marginTop: "20px",
-          display: "flex",
-          flexWrap: "wrap",
-          gap: "10px",
+          width: "100%",
+          maxWidth: "100vh",
+          margin: "0 auto",
         }}
       >
-        {states.map((state) => (
-          <Link key={state} href={`/states/${state}`}>
-            <button style={{ padding: "10px 20px", cursor: "pointer" }}>
-              {state}
-            </button>
+        <Map availableStates={availableStates} />
+      </div>
+
+      <div
+        className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 mt-8 mb-4"
+        style={{
+          width: "100%",
+          padding: "0 1rem",
+          paddingBottom: "2rem", // Ensure there's extra space at the bottom
+        }}
+      >
+        {Object.entries(availableStates).map(([state, abbreviation]) => (
+          <Link key={state} href={`/states/${abbreviation}`}>
+            <button className={"stateButton"}>{state}</button>
           </Link>
         ))}
       </div>
-
-      <Link href="/about">About</Link>
     </main>
   );
 }

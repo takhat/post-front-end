@@ -7,9 +7,7 @@ body {
   overflow: hidden;
   font-family: "Poppins", sans-serif;
 }
-pre {
-  font-size: 7em;
-}
+
 .map .land {
   /* fill: #f7f7f7; */
   cursor: pointer;
@@ -20,11 +18,40 @@ pre {
   stroke: #000;
 }
 
-.label {
-  font-size: 1em;
-  fill: #000;
+.tooltip {
+  position: absolute;
+  background-color: rgb(246, 255, 201);
+  border: #fff;
+  padding: 10px;
+  font-size: 14px;
+  border-radius: 3px;
+  box-shadow: 2px 2px 2px rgb(200, 205, 176);
+  font-family: "Segoe UI";
 }
 
+h1 {
+  font-size: 1.5rem;
+  font-weight: 400;
+  color: #333;
+  font-family: "Segoe UI";
+}
+
+.stateButton {
+  width: 10rem; /* Adjust as needed */
+  height: 2.5rem; /* Adjust as needed */
+  border-radius: 0.5rem; /* Adjust as needed */
+  background-color: #fff;
+  border: 1px solid #333; /* Adjust as needed */
+  color: #333;
+  font-size: 0.875rem; /* Adjust as needed */
+  font-family: "Segoe UI";
+}
+
+.stateButton:hover {
+  background-color: rgba(51, 51, 51, 0.1); /* Slight background fill */
+  border-color: #555;
+  color: #555;
+}
 :root {
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
