@@ -15,35 +15,56 @@ const StatePage = () => {
   //pagination
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(10);
-  const [totalItems, setTotalItems] = useState(0); 
+  const [totalItems, setTotalItems] = useState(0); // Assume you will get the total items count from API or data source
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
-  const state = pathname.split("/")[2];
+  const stateCode = pathname.split("/")[2];
+  console.log(stateCode);
 
   const handleAgencyChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setAgency(event.target.value);
     setCurrentPage(1); //reset pagination
-    router.push(`/states/${state}?agency=${event.target.value}`);
+    router.push(`/states/${stateCode}?agency=${event.target.value}`);
   };
-  // Fetch officers data
-  const fetchOfficers = (page: number, perPage: number) => {
-    const { officers, totalItems } = getOfficersByAgency(agency, page, perPage);
-    setOfficers(officers);
-    setTotalItems(totalItems);
+  const fetchOfficers = async (page: number, perPage: number) => {
+    try {
+      setLoading(true);
+      const { officers, totalItems } = await getOfficersByAgency(
+        stateCode,
+        agency,
+        page,
+        perPage
+      );
+
+      console.log("Fetched officers in component:", officers);
+
+      setOfficers(officers);
+      setTotalItems(totalItems);
+    } catch (error) {
+      setError("Failed to fetch officers.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   useEffect(() => {
-    fetchOfficers(currentPage, itemsPerPage);
-  }, [state, agency, currentPage]);
+    if (stateCode) {
+      fetchOfficers(currentPage, itemsPerPage);
+    }
+  }, [stateCode, agency, currentPage]);
 
   // Pagination handlers
   const handlePageChange = (page: number) => {
     if (page < 1 || page > totalPages) return; // Ensure page is within valid range
     setCurrentPage(page);
-    router.push(`/states/${state}?agency=${agency}&page=${page}`);
+    router.push(`/states/${stateCode}?agency=${agency}&page=${page}`);
   };
 
   // Calculate pagination data
   const totalPages = Math.ceil(totalItems / itemsPerPage);
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>{error}</p>;
 
   return (
     <div>
@@ -54,8 +75,8 @@ const StatePage = () => {
             State:{" "}
           </label>
           <select name="state" id="state">
-            <option value="wa" defaultValue={state}>
-              {state}
+            <option value="wa" defaultValue={stateCode}>
+              {stateCode}
             </option>
             <option value="vt">VT</option>
           </select>

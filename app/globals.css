@@ -41,13 +41,11 @@ body {
   }
 
   body {
-    @apply bg-dark-grey text-white text-center p-10;
+    @apply bg-dark-grey text-white text-center p-10 ;
   }
-
   .title {
     @apply text-xl my-5; /* Tailwind's spacing utilities */
   }
-
   .stats {
     @apply flex justify-around flex-wrap  my-5;
   }
@@ -63,6 +61,7 @@ body {
   .cards {
     @apply flex flex-wrap justify-center items-center text-black;
   }
+ 
   .officer-card,#officer-card {
     @apply bg-light-grey p-5 m-3 w-[350px] rounded-15 max-h-card overflow-auto;
   }
@@ -73,7 +72,29 @@ body {
 
   @media (max-width: 768px) {
     .stats {
-      @apply flex-col;
+      @apply flex-col items-stretch;
     }
   }
+  .page-container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+  .content{
+    flex:1;
+    overflow: hidden;
+  }
+  .cards{
+    overflow-y:auto ;
+  }
+  .officer-card {
+    overflow: auto; /* Adds scrollbar to card if content overflows */
+  }
+  .pagination {
+    display: flex;
+    justify-content: center;
+    padding: 1rem; /* Adds spacing around pagination controls */
+    background: #333; /* Optional background color */
+  }
+  
 }
