@@ -14,7 +14,7 @@ const StatePage = () => {
 
   //pagination
   const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage] = useState(10);
+  const [itemsPerPage] = useState(12);
   const [totalItems, setTotalItems] = useState(0); // Assume you will get the total items count from API or data source
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
