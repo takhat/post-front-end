@@ -15,7 +15,7 @@ const config: Config = {
         black: "#000",
       },
       maxHeight: {
-        card: "11rem",
+        card: "12rem",
       },
       spacing: {
         "10": "10px",

@@ -16,19 +16,20 @@ const StatePage = () => {
   const [sortBy, setSortBy] = useState("last-name");
   const [officers, setOfficers] = useState<PeaceOfficer[]>([]);
   const [agencies, setAgencies] = useState<Agency[]>([]);
-  const [stateCode, setStateCode] = useState<string>(pathname.split("/")[2]);
+  const [stateCode, setStateCode] = useState<string>(
+    pathname.split("/")[2] || ""
+  );
   const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage] = useState(12);
+  const [itemsPerPage] = useState(15);
   const [totalItems, setTotalItems] = useState(0);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   // Sort-by dropdown options
   const states = [
-    { value: "wa", label: "WA" },
-    { value: "vt", label: "VT" },
+    { value: "WA", label: "WA" },
+    { value: "VT", label: "VT" },
   ];
-  // Sort-by dropdown options
   const sortedStates = states.sort((a, b) => a.label.localeCompare(b.label));
 
   // Sort-by dropdown options
@@ -148,7 +149,7 @@ const StatePage = () => {
             onChange={handleStateChange}
           >
             {sortedStates.map((state) => (
-              <option key={state.label} value={state.value}>
+              <option key={state.value} value={state.value}>
                 {state.label}
               </option>
             ))}
@@ -163,6 +164,7 @@ const StatePage = () => {
             name="agency"
             id="agency"
             value={agency}
+            className="agency-select"
             onChange={handleAgencyChange}
           >
             <option value="all">All</option>

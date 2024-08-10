@@ -8,7 +8,7 @@ interface OfficerCardProps {
 const OfficerCard: React.FC<OfficerCardProps> = ({ officer }) => {
   return (
     <div className="officer-card">
-      <h3>
+      <h3 className="standout officer-name">
         {officer.firstName} {officer.lastName}
       </h3>
       <p className="uid">UID: {officer.UID}</p>
@@ -18,7 +18,7 @@ const OfficerCard: React.FC<OfficerCardProps> = ({ officer }) => {
         ) : (
           officer.workHistory.map((history: WorkHistory) => (
             <div key={history.id} className="work-history-entry">
-              <p>{history.agencyName || "Unknown Agency"}</p>
+              <p className="agency-name">{history.agencyName || "Unknown Agency"}</p>
               <p>
                 Start Date:{" "}
                 {history.startDate
@@ -32,7 +32,8 @@ const OfficerCard: React.FC<OfficerCardProps> = ({ officer }) => {
                   : ""}
               </p>
               <p>Separation Reason: {history.separationReason}</p>
-              <p>---</p>
+              <br></br>
+              <br></br>
             </div>
           ))
         )}

@@ -1,3 +1,4 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -9,12 +10,15 @@
     margin: 0;
     padding: 0;
   }
+
   body {
-    @apply bg-dark-grey text-white text-center p-10 ;
+    @apply bg-dark-grey text-white text-center p-10;
   }
+
   .title {
     @apply text-xl my-5; /* Tailwind's spacing utilities */
   }
+
   .stats {
     @apply flex justify-around flex-wrap  my-5;
   }
@@ -30,15 +34,20 @@
   .cards {
     @apply flex flex-wrap justify-center items-center text-black;
   }
- 
-  .officer-card,#officer-card {
-    @apply bg-light-grey p-5 m-3 w-[460px] rounded-15 max-h-card overflow-auto;
+  .officer-card {
+    @apply bg-light-grey p-5 m-3 w-[300px] rounded-15 max-h-card overflow-auto;
   }
-  .officer-card>h3 {
-    @apply text-lg font-bold sticky top-0 bg-light-grey;
+  .officer-name {
+    @apply sticky top-0 bg-light-grey;
   }
-  #uid,.uid{
-    @apply sticky top-7 bg-light-grey
+  .uid {
+    @apply sticky top-7 bg-light-grey;
+  }
+  .standout{
+    @apply font-semibold text-lg;
+  }
+  .agency-name{
+    @apply font-semibold;
   }
   .pagination{
     @apply flex justify-center mt-4 items-center
@@ -49,9 +58,12 @@
   .page-number{
     @apply mx-4 text-lg
   }
+  .agency-select {
+    @apply max-w-[calc(100vw-2rem)] overflow-x-auto focus:outline-none
+  }
   @media (max-width: 768px) {
     .stats {
-      @apply flex-col items-stretch;
+      @apply flex-col;
     }
   }
 }
