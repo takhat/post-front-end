@@ -6,7 +6,8 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Peace Officer Employment History",
-  description: "View peace officer employment history by state, agency and more",
+  description:
+    "View Peace Officer Employment History by State, Agency and more",
 };
 
 export default function RootLayout({

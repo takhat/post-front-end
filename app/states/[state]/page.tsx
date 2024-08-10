@@ -2,31 +2,66 @@
 
 import { useRouter, usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
-import { getOfficersByAgency } from "../../../data/officersData";
-import { PeaceOfficer } from "../../../data/officersData";
+import {
+  getOfficersByAgency,
+  fetchOfficersData,
+} from "../../../data/officersData";
+import { PeaceOfficer, Agency } from "../../../data/officersData";
 import OfficerList from "../../components/OfficerList";
 
 const StatePage = () => {
   const router = useRouter();
   const pathname = usePathname();
   const [agency, setAgency] = useState("all");
+  const [sortBy, setSortBy] = useState("last-name");
   const [officers, setOfficers] = useState<PeaceOfficer[]>([]);
-
-  //pagination
+  const [agencies, setAgencies] = useState<Agency[]>([]);
+  const [stateCode, setStateCode] = useState<string>(pathname.split("/")[2]);
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(12);
-  const [totalItems, setTotalItems] = useState(0); // Assume you will get the total items count from API or data source
+  const [totalItems, setTotalItems] = useState(0);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  const stateCode = pathname.split("/")[2];
-  console.log(stateCode);
+  // Sort-by dropdown options
+  const states = [
+    { value: "wa", label: "WA" },
+    { value: "vt", label: "VT" },
+  ];
+  // Sort-by dropdown options
+  const sortedStates = states.sort((a, b) => a.label.localeCompare(b.label));
 
-  const handleAgencyChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setAgency(event.target.value);
-    setCurrentPage(1); //reset pagination
-    router.push(`/states/${stateCode}?agency=${event.target.value}`);
-  };
+  // Sort-by dropdown options
+  const sortOptions = [
+    { value: "last-name", label: "Last Name" },
+    { value: "first-name", label: "First Name" },
+    { value: "uid", label: "UID" },
+  ];
+  const sortedSortOptions = sortOptions.sort((a, b) =>
+    a.label.localeCompare(b.label)
+  );
+
+  useEffect(() => {
+    const fetchAgencies = async () => {
+      try {
+        if (stateCode) {
+          const agencyData = await fetchOfficersData(stateCode);
+
+          // Sort agencies alphabetically by agencyName
+          const sortedAgencies = agencyData.sort((a, b) =>
+            a.agencyName.localeCompare(b.agencyName)
+          );
+
+          setAgencies(sortedAgencies);
+        }
+      } catch (error) {
+        console.error("Failed to fetch agencies", error);
+      }
+    };
+
+    fetchAgencies();
+  }, [stateCode]);
+
   const fetchOfficers = async (page: number, perPage: number) => {
     try {
       setLoading(true);
@@ -34,10 +69,9 @@ const StatePage = () => {
         stateCode,
         agency,
         page,
-        perPage
+        perPage,
+        sortBy
       );
-
-      console.log("Fetched officers in component:", officers);
 
       setOfficers(officers);
       setTotalItems(totalItems);
@@ -49,19 +83,52 @@ const StatePage = () => {
   };
 
   useEffect(() => {
-    if (stateCode) {
-      fetchOfficers(currentPage, itemsPerPage);
-    }
-  }, [stateCode, agency, currentPage]);
+    fetchOfficers(currentPage, itemsPerPage);
+  }, [stateCode, agency, sortBy, currentPage]);
 
-  // Pagination handlers
-  const handlePageChange = (page: number) => {
-    if (page < 1 || page > totalPages) return; // Ensure page is within valid range
-    setCurrentPage(page);
-    router.push(`/states/${stateCode}?agency=${agency}&page=${page}`);
+  useEffect(() => {
+    const pathState = pathname.split("/")[2];
+    if (pathState && pathState !== stateCode) {
+      setStateCode(pathState);
+      setAgency("all");
+      setSortBy("last-name");
+      setCurrentPage(1); // reset pagination
+    }
+  }, [pathname]);
+
+  const handleStateChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const newStateCode = event.target.value;
+    setStateCode(newStateCode);
+    setCurrentPage(1);
+    router.push(
+      `/states/${newStateCode}?agency=${agency}&sortBy=${sortBy}&page=1`
+    );
   };
 
-  // Calculate pagination data
+  const handleAgencyChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    setAgency(event.target.value);
+    setCurrentPage(1);
+    router.push(
+      `/states/${stateCode}?agency=${event.target.value}&sortBy=${sortBy}&page=1`
+    );
+  };
+
+  const handleSortChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    setSortBy(event.target.value);
+    setCurrentPage(1);
+    router.push(
+      `/states/${stateCode}?agency=${agency}&sortBy=${event.target.value}&page=1`
+    );
+  };
+
+  const handlePageChange = (page: number) => {
+    if (page < 1 || page > totalPages) return;
+    setCurrentPage(page);
+    router.push(
+      `/states/${stateCode}?agency=${agency}&sortBy=${sortBy}&page=${page}`
+    );
+  };
+
   const totalPages = Math.ceil(totalItems / itemsPerPage);
   if (loading) return <p>Loading...</p>;
   if (error) return <p>{error}</p>;
@@ -74,11 +141,17 @@ const StatePage = () => {
           <label className="options-label" htmlFor="state">
             State:{" "}
           </label>
-          <select name="state" id="state">
-            <option value="wa" defaultValue={stateCode}>
-              {stateCode}
-            </option>
-            <option value="vt">VT</option>
+          <select
+            name="state"
+            id="state"
+            value={stateCode}
+            onChange={handleStateChange}
+          >
+            {sortedStates.map((state) => (
+              <option key={state.label} value={state.value}>
+                {state.label}
+              </option>
+            ))}
           </select>
         </div>
 
@@ -93,8 +166,11 @@ const StatePage = () => {
             onChange={handleAgencyChange}
           >
             <option value="all">All</option>
-            <option value="agency 1">Seattle PD</option>
-            <option value="agency 2">Burlington PD</option>
+            {agencies.map((agencyItem) => (
+              <option key={agencyItem.id} value={agencyItem.agencyName}>
+                {agencyItem.agencyName}
+              </option>
+            ))}
           </select>
         </div>
 
@@ -102,33 +178,40 @@ const StatePage = () => {
           <label className="options-label" htmlFor="sort-by">
             Sort by:{" "}
           </label>
-          <select name="sort-by" id="sort-by">
-            <option value="last-name">Last Name</option>
-            <option value="first-name">First Name</option>
-            <option value="uid">Uid</option>
+          <select
+            name="sort-by"
+            id="sort-by"
+            value={sortBy}
+            onChange={handleSortChange}
+          >
+            {sortedSortOptions.map((option) => (
+              <option key={option.value} value={option.value}>
+                {option.label}
+              </option>
+            ))}
           </select>
         </div>
       </div>
 
       <div className="cards">
-        <OfficerList officers={officers} agencyName={agency} />
+        <OfficerList officers={officers} />
       </div>
-      {/* Pagination Controls */}
-      <div className="flex justify-center mt-4 ">
+
+      <div className="pagination">
         <button
           onClick={() => handlePageChange(currentPage - 1)}
           disabled={currentPage <= 1}
-          className="p-2 border border-gray-300 rounded hover:bg-gray-300"
+          className="btn"
         >
           Previous
         </button>
-        <span className="mx-4 text-lg">
+        <span className="page-number">
           Page {currentPage} of {totalPages}
         </span>
         <button
           onClick={() => handlePageChange(currentPage + 1)}
           disabled={currentPage >= totalPages}
-          className="p-2 border border-gray-300 rounded hover:bg-gray-300"
+          className="btn"
         >
           Next
         </button>

@@ -1,33 +1,3 @@
-/* @tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
-}
-
-body {
-  color: rgb(var(--foreground-rgb));
-  padding: 1rem;
-}
-
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
-} */
-
-/* globals.css */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -39,7 +9,6 @@ body {
     margin: 0;
     padding: 0;
   }
-
   body {
     @apply bg-dark-grey text-white text-center p-10 ;
   }
@@ -68,32 +37,21 @@ body {
   .officer-card>h3 {
     @apply text-lg font-bold sticky top-0 bg-light-grey;
   }
-  #uid,.uid{@apply sticky top-7 bg-light-grey}
-
+  #uid,.uid{
+    @apply sticky top-7 bg-light-grey
+  }
+  .pagination{
+    @apply flex justify-center mt-4 items-center
+  }
+  .btn{
+    @apply p-2 border border-gray-300 rounded-md hover:bg-gray-300
+  }
+  .page-number{
+    @apply mx-4 text-lg
+  }
   @media (max-width: 768px) {
     .stats {
       @apply flex-col items-stretch;
     }
   }
-  /* .page-container {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-  }
-  .content{
-    flex:1;
-    overflow: hidden;
-  }
-  .cards{
-    overflow-y:auto ;
-  }
-  .officer-card {
-    overflow: auto; /* Adds scrollbar to card if content overflows */
-  /* }
-  .pagination {
-    display: flex;
-    justify-content: center;
-    padding: 1rem; /* Adds spacing around pagination controls */
-    /* background: #333; /* Optional background color 
-  } */
 }

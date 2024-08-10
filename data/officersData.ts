@@ -11,12 +11,12 @@ export interface WorkHistory {
 export interface PeaceOfficer {
   id: number;
   UID: string;
-  firstName: string; 
+  firstName: string;
   lastName: string;
   workHistory: WorkHistory[];
 }
 
-interface Agency {
+export interface Agency {
   id: number;
   agencyName: string;
   peaceOfficerList: PeaceOfficer[];
@@ -64,22 +64,17 @@ export const fetchOfficersData = async (state: string): Promise<Agency[]> => {
     throw new Error("Failed to fetch data");
   }
 };
-
-// Main function to get officers by agency
 export const getOfficersByAgency = async (
   state: string,
   agencyName: string,
   page: number,
-  perPage: number
+  perPage: number,
+  sortBy: string
 ): Promise<{ officers: PeaceOfficer[]; totalItems: number }> => {
   try {
-    // Fetch data from API
     const data = await fetchOfficersData(state);
-
-    // Flatten all officers from all agencies
     const allOfficers = flattenOfficers(data);
 
-    // Filter by agency name if specified
     const filteredOfficers =
       agencyName === "all"
         ? allOfficers
@@ -89,13 +84,34 @@ export const getOfficersByAgency = async (
             )
           );
 
-    // Calculate total items after filtering
-    const totalItems = filteredOfficers.length;
+    // Sort the officers based on the sortBy parameter
+    const sortedOfficers = filteredOfficers.sort((a, b) => {
+      switch (sortBy) {
+        case "last-name":
+          return a.lastName.localeCompare(b.lastName);
+        case "first-name":
+          return a.firstName.localeCompare(b.firstName);
+        case "uid":
+          // Try to parse UIDs as numbers for numeric sorting
+          const uidA = parseInt(a.UID, 10);
+          const uidB = parseInt(b.UID, 10);
 
-    // Calculate the range of items for pagination
+          if (!isNaN(uidA) && !isNaN(uidB)) {
+            // Both UIDs are numeric
+            return uidA - uidB;
+          } else {
+            // Treat UIDs as strings if they are not purely numeric
+            return a.UID.localeCompare(b.UID);
+          }
+        default:
+          return 0;
+      }
+    });
+
+    const totalItems = sortedOfficers.length;
     const startIndex = (page - 1) * perPage;
     const endIndex = Math.min(startIndex + perPage, totalItems);
-    const paginatedOfficers = filteredOfficers.slice(startIndex, endIndex);
+    const paginatedOfficers = sortedOfficers.slice(startIndex, endIndex);
 
     return {
       officers: paginatedOfficers,
