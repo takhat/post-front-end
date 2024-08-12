@@ -1,5 +1,5 @@
 import React from "react";
-import { PeaceOfficer, WorkHistory } from "../../data/officersData"; // Ensure correct import path
+import { PeaceOfficer, WorkHistory } from "../../data/officersData";
 
 interface OfficerCardProps {
   officer: PeaceOfficer;
@@ -9,9 +9,11 @@ const OfficerCard: React.FC<OfficerCardProps> = ({ officer }) => {
   return (
     <div className="officer-card">
       <h3 className="standout officer-name">
+        <br></br>
         {officer.firstName} {officer.lastName}
       </h3>
       <p className="uid">UID: {officer.UID}</p>
+
       <div className="work-history">
         {officer.workHistory.length === 0 ? (
           <p>No work history available</p>

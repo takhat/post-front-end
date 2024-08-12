@@ -8,6 +8,7 @@ import {
 } from "../../../data/officersData";
 import { PeaceOfficer, Agency } from "../../../data/officersData";
 import OfficerList from "../../components/OfficerList";
+import Pagination from "../../components/Pagination"; // Import the Pagination component
 
 const StatePage = () => {
   const router = useRouter();
@@ -32,7 +33,6 @@ const StatePage = () => {
   ];
   const sortedStates = states.sort((a, b) => a.label.localeCompare(b.label));
 
-  // Sort-by dropdown options
   const sortOptions = [
     { value: "last-name", label: "Last Name" },
     { value: "first-name", label: "First Name" },
@@ -47,12 +47,9 @@ const StatePage = () => {
       try {
         if (stateCode) {
           const agencyData = await fetchOfficersData(stateCode);
-
-          // Sort agencies alphabetically by agencyName
           const sortedAgencies = agencyData.sort((a, b) =>
             a.agencyName.localeCompare(b.agencyName)
           );
-
           setAgencies(sortedAgencies);
         }
       } catch (error) {
@@ -73,7 +70,6 @@ const StatePage = () => {
         perPage,
         sortBy
       );
-
       setOfficers(officers);
       setTotalItems(totalItems);
     } catch (error) {
@@ -123,7 +119,6 @@ const StatePage = () => {
   };
 
   const handlePageChange = (page: number) => {
-    if (page < 1 || page > totalPages) return;
     setCurrentPage(page);
     router.push(
       `/states/${stateCode}?agency=${agency}&sortBy=${sortBy}&page=${page}`
@@ -131,6 +126,7 @@ const StatePage = () => {
   };
 
   const totalPages = Math.ceil(totalItems / itemsPerPage);
+
   if (loading) return <p>Loading...</p>;
   if (error) return <p>{error}</p>;
 
@@ -199,25 +195,11 @@ const StatePage = () => {
         <OfficerList officers={officers} />
       </div>
 
-      <div className="pagination">
-        <button
-          onClick={() => handlePageChange(currentPage - 1)}
-          disabled={currentPage <= 1}
-          className="btn"
-        >
-          Previous
-        </button>
-        <span className="page-number">
-          Page {currentPage} of {totalPages}
-        </span>
-        <button
-          onClick={() => handlePageChange(currentPage + 1)}
-          disabled={currentPage >= totalPages}
-          className="btn"
-        >
-          Next
-        </button>
-      </div>
+      <Pagination
+        currentPage={currentPage}
+        totalPages={totalPages}
+        onPageChange={handlePageChange}
+      />
     </div>
   );
 };
