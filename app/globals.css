@@ -2,23 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
+/* body {
   margin: 0;
   overflow: hidden;
   font-family: "Poppins", sans-serif;
-}
-
-.map .land {
-  /* fill: #f7f7f7; */
-  cursor: pointer;
-}
-
-.map .interiors {
-  fill: none;
-  stroke: #000;
-}
-
-.tooltip {
+} */
+x .tooltip {
   position: absolute;
   background-color: rgb(246, 255, 201);
   border: #fff;
@@ -29,31 +18,30 @@ body {
   font-family: "Segoe UI";
 }
 
-h1 {
+/* h1 {
   font-size: 1.5rem;
   font-weight: 400;
   color: #333;
   font-family: "Segoe UI";
-}
+} */
 
-.stateButton {
-  width: 10rem; /* Adjust as needed */
-  height: 2.5rem; /* Adjust as needed */
-  border-radius: 0.5rem; /* Adjust as needed */
-  background-color: #fff;
-  border: 1px solid #333; /* Adjust as needed */
-  color: #333;
-  font-size: 0.875rem; /* Adjust as needed */
-  font-family: "Segoe UI";
-}
-
-.stateButton:hover {
-  background-color: rgba(51, 51, 51, 0.1); /* Slight background fill */
-  border-color: #555;
-  color: #555;
-}
-:root {
+/* :root {
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
+} */
+html,
+body {
+  padding: 0;
+  margin: 0;
+  background-color: white;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.clearNav {
+  backdrop-filter: saturate(180%) blur(5px) !important;
+  background-color: rgba(255, 255, 255, 0.6) !important;
 }

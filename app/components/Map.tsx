@@ -1,68 +1,37 @@
 "use client";
 import React, { useState, useEffect, useRef } from "react";
 import { geoPath, geoAlbersUsa } from "d3-geo";
-import { feature, mesh } from "topojson-client";
-import {
-  GeometryCollection,
-  GeometryObject,
-  Topology,
-} from "topojson-specification";
-import { json } from "d3";
 import { FeatureCollection, MultiLineString, Geometry } from "geojson";
 import * as d3 from "d3";
 import { useRouter } from "next/navigation";
+import colors from "@/styles/colors";
 
-const jsonUrl = "/data/states.json";
-interface MapProps {
-  availableStates: { [key: string]: string };
-}
 const projection = geoAlbersUsa();
 const path = geoPath(projection);
 
-export const Map = ({ availableStates }: MapProps) => {
-  const router = useRouter();
-
-  const [data, setData] = useState<{
+interface MapProps {
+  data: {
     land: FeatureCollection<Geometry>;
     interiors: MultiLineString;
-  } | null>(null);
-  const [viewBox, setViewBox] = useState<string>("0 0 960 500");
+  };
+  availableStates: { [key: string]: string };
+}
+
+export const Map = ({ data, availableStates }: MapProps) => {
+  const router = useRouter();
   const svgRef = useRef<SVGSVGElement | null>(null);
   const [selectedState, setSelectedState] = useState<string>("");
+  const projection = geoAlbersUsa();
+  const pathGenerator = geoPath(projection);
 
-  const fetchData = async () => {
-    try {
-      const topology = (await json(jsonUrl)) as Topology;
-      const { states } = topology.objects as {
-        states: GeometryCollection<GeometryObject>;
-      };
-
-      const land = feature(topology, states) as FeatureCollection<Geometry>;
-      const interiors = mesh(
-        topology,
-        states,
-        (a, b) => a !== b
-      ) as MultiLineString;
-
-      setData({ land, interiors });
-
-      // Calculate bounds and viewBox
-      const bounds = path.bounds(land);
-      const padding = 20;
-      const dx = bounds[1][0] - bounds[0][0] + padding;
-      const dy = bounds[1][1] - bounds[0][1] + padding;
-      const x = bounds[0][0] - padding / 2;
-      const y = bounds[0][1] - padding / 2;
-
-      setViewBox(`${x} ${y} ${dx} ${dy}`);
-    } catch (error) {
-      console.error("Error fetching data:", error);
-    }
-  };
-
-  useEffect(() => {
-    fetchData();
-  }, []);
+  // calculate viewBox
+  const bounds = pathGenerator.bounds(data.land);
+  const padding = 20;
+  const dx = bounds[1][0] - bounds[0][0] + padding;
+  const dy = bounds[1][1] - bounds[0][1] + padding;
+  const x = bounds[0][0] - padding / 2;
+  const y = bounds[0][1] - padding / 2;
+  const viewBox = `${x.toFixed(2)} ${y.toFixed(2)} ${dx.toFixed(2)} ${dy.toFixed(2)}`;
 
   useEffect(() => {
     if (!data || !svgRef.current) return;
@@ -76,7 +45,6 @@ export const Map = ({ availableStates }: MapProps) => {
       .attr("class", "tooltip-bg")
       .attr("fill", "rgba(255, 255, 255, 0.8)") // semi-transparent white background
       .attr("stroke", "black") // border color
-
       .style("visibility", "hidden");
 
     const tooltip = svg
@@ -94,10 +62,12 @@ export const Map = ({ availableStates }: MapProps) => {
       .attr("class", "land")
       .attr("d", (feature) => path(feature)!)
       .attr("fill", (feature) =>
-        availableStates[feature.properties?.name] ? "#DAD7D7" : "white"
+        availableStates[feature.properties?.name]
+          ? colors.stateWithData
+          : colors.defaultStateFill
       )
-      .attr("stroke", "black")
-      .attr("stroke-width", "1px")
+      .attr("stroke", colors.stateBorder)
+      .attr("stroke-width", "1")
       .on("mouseover", (event, feature) => {
         const [mx, my] = d3.pointer(event);
         tooltip
@@ -119,14 +89,14 @@ export const Map = ({ availableStates }: MapProps) => {
         }
 
         if (availableStates[feature.properties?.name]) {
-          d3.select(event.target).attr("fill", "#A7A3A3");
+          d3.select(event.target).attr("fill", colors.hoverState);
         }
       })
       .on("mouseout", (event, feature) => {
         tooltip.style("visibility", "hidden");
         tooltipBg.style("visibility", "hidden");
         if (availableStates[feature.properties?.name]) {
-          d3.select(event.target).attr("fill", "#DAD7D7");
+          d3.select(event.target).attr("fill", colors.stateWithData);
         }
       })
       .on("mousemove", (event) => {
@@ -147,7 +117,7 @@ export const Map = ({ availableStates }: MapProps) => {
         }
       })
       .on("click", (event, feature) => {
-        setSelectedState(feature.properties?.name || "");
+        setSelectedState(feature.properties?.name);
       })
       .transition();
 
@@ -156,19 +126,20 @@ export const Map = ({ availableStates }: MapProps) => {
       .data([data.interiors])
       .join("path")
       .attr("class", "interiors")
-      .attr("d", path);
+      .attr("d", path)
+      .attr("fill", "none");
 
     return () => {
       tooltip.remove();
       tooltipBg.remove();
     };
-  }, [data, selectedState]);
+  }, [data, selectedState, availableStates]);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (svgRef.current && !svgRef.current.contains(event.target as Node)) {
         const clickedElement = event.target as HTMLElement;
-        // Exclude button from triggering state reset
+        // Exclude state button from triggering state reset
         if (!clickedElement.closest(".button")) {
           setSelectedState("");
         }
@@ -186,12 +157,11 @@ export const Map = ({ availableStates }: MapProps) => {
   };
 
   return (
-    <div style={{ marginBottom: "2rem" }}>
+    <div>
       <svg
-        className="map"
+        className="h-full w-full cursor-pointer"
         ref={svgRef}
         viewBox={viewBox}
-        style={{ width: "100%", height: "auto", maxHeight: "70vh" }}
       />
       {selectedState in availableStates && (
         <div
@@ -205,16 +175,13 @@ export const Map = ({ availableStates }: MapProps) => {
             boxShadow: "2px 2px 5px rgba(0,0,0,0.3)",
           }}
         >
-          <p>
-            {" "}
-            View police officer employment history data for {selectedState}
-          </p>
+          <p>View police officer employment history data for {selectedState}</p>
           <button
             type="button"
             className="button"
             onClick={handleNavigate}
             style={{
-              backgroundColor: "#008CBA",
+              backgroundColor: "#d1d5db",
               color: "white",
               border: "none",
               padding: "5px 10px",
