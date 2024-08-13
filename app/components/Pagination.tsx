@@ -1,4 +1,3 @@
-// components/Pagination.tsx
 import React from "react";
 
 interface PaginationProps {
@@ -25,6 +24,7 @@ const Pagination: React.FC<PaginationProps> = ({
           <button
             className="btn page-link"
             onClick={() => handlePageChange(currentPage - 1)}
+            disabled={currentPage === 1}
           >
             Previous
           </button>
@@ -46,8 +46,9 @@ const Pagination: React.FC<PaginationProps> = ({
           className={`page-item ${currentPage === totalPages ? "disabled" : ""}`}
         >
           <button
-            className=" btn page-link"
+            className={`btn page-link ${currentPage === totalPages ? "disabled" : ""}`}
             onClick={() => handlePageChange(currentPage + 1)}
+            disabled={currentPage === totalPages}
           >
             Next
           </button>

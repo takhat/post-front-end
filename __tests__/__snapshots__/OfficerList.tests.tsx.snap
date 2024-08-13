@@ -1,0 +1,88 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`OfficerList should match the snapshot 1`] = `
+<DocumentFragment>
+  <div
+    class="cards"
+  >
+    <div
+      class="officer-card"
+    >
+      <h3
+        class="standout officer-name"
+      >
+        <br />
+        John Doe
+      </h3>
+      <p
+        class="uid"
+      >
+        UID: 123456
+      </p>
+      <div
+        class="work-history"
+      >
+        <div
+          class="work-history-entry"
+        >
+          <p
+            class="agency-name"
+          >
+            Example Agency
+          </p>
+          <p>
+            Start Date: 12/29/2021
+          </p>
+          <p>
+            End Date: 1/29/2022
+          </p>
+          <p>
+            Separation Reason: Resigned
+          </p>
+          <br />
+          <br />
+        </div>
+      </div>
+    </div>
+    <div
+      class="officer-card"
+    >
+      <h3
+        class="standout officer-name"
+      >
+        <br />
+        Jane Smith
+      </h3>
+      <p
+        class="uid"
+      >
+        UID: 789012
+      </p>
+      <div
+        class="work-history"
+      >
+        <div
+          class="work-history-entry"
+        >
+          <p
+            class="agency-name"
+          >
+            Another Agency
+          </p>
+          <p>
+            Start Date: 6/14/2020
+          </p>
+          <p>
+            End Date: 11/30/2021
+          </p>
+          <p>
+            Separation Reason: Transferred
+          </p>
+          <br />
+          <br />
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;

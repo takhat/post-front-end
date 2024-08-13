@@ -1,0 +1,45 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`OfficerCard should match the snapshot 1`] = `
+<DocumentFragment>
+  <div
+    class="officer-card"
+  >
+    <h3
+      class="standout officer-name"
+    >
+      <br />
+      John Doe
+    </h3>
+    <p
+      class="uid"
+    >
+      UID: 123456
+    </p>
+    <div
+      class="work-history"
+    >
+      <div
+        class="work-history-entry"
+      >
+        <p
+          class="agency-name"
+        >
+          Example Agency
+        </p>
+        <p>
+          Start Date: 12/29/2021
+        </p>
+        <p>
+          End Date: 1/29/2022
+        </p>
+        <p>
+          Separation Reason: Resigned
+        </p>
+        <br />
+        <br />
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;

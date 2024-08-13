@@ -26,27 +26,24 @@ const apiUrl =
   "https://police-officer-data-web-app-backend.onrender.com/filter";
 
 // Flatten all officers from all agencies into a single list and add agency name to each work history
-const flattenOfficers = (data: Agency[]): PeaceOfficer[] => {
+export const flattenOfficers = (data: Agency[]): PeaceOfficer[] => {
   const officerMap = new Map<string, PeaceOfficer>();
 
   data.forEach((agency) => {
     agency.peaceOfficerList.forEach((officer) => {
-      if (!officerMap.has(officer.UID)) {
+      const updatedWorkHistory = officer.workHistory.map((history) => ({
+        ...history,
+        agencyName: agency.agencyName,
+      }));
+
+      if (officerMap.has(officer.UID)) {
+        const existingOfficer = officerMap.get(officer.UID)!;
+        existingOfficer.workHistory.push(...updatedWorkHistory);
+      } else {
         officerMap.set(officer.UID, {
           ...officer,
-          workHistory: officer.workHistory.map((history) => ({
-            ...history,
-            agencyName: agency.agencyName,
-          })),
+          workHistory: updatedWorkHistory,
         });
-      } else {
-        const existingOfficer = officerMap.get(officer.UID)!;
-        existingOfficer.workHistory.push(
-          ...officer.workHistory.map((history) => ({
-            ...history,
-            agencyName: agency.agencyName,
-          }))
-        );
       }
     });
   });
@@ -60,10 +57,11 @@ export const fetchOfficersData = async (state: string): Promise<Agency[]> => {
     const response = await axios.get<Agency[]>(`${apiUrl}?stateCode=${state}`);
     return response.data;
   } catch (error) {
-    console.error("Error fetching data:", error);
+    console.error("Error fetching data:", (error as Error).message);
     throw new Error("Failed to fetch data");
   }
 };
+
 export const getOfficersByAgency = async (
   state: string,
   agencyName: string,
@@ -97,10 +95,8 @@ export const getOfficersByAgency = async (
           const uidB = parseInt(b.UID, 10);
 
           if (!isNaN(uidA) && !isNaN(uidB)) {
-            // Both UIDs are numeric
             return uidA - uidB;
           } else {
-            // Treat UIDs as strings if they are not purely numeric
             return a.UID.localeCompare(b.UID);
           }
         default:
@@ -117,8 +113,16 @@ export const getOfficersByAgency = async (
       officers: paginatedOfficers,
       totalItems,
     };
-  } catch (error) {
-    console.error("Error getting officers by agency:", error);
-    throw new Error("Failed to get officers by agency");
+  } catch (e) {
+    // Type assertion to ensure e is an instance of Error
+    if (e instanceof Error) {
+      console.error("Error getting officers by agency:", e.message);
+      throw new Error("Failed to get officers by agency");
+    } else {
+      console.error("Unknown error getting officers by agency");
+      throw new Error(
+        "Failed to get officers by agency due to an unknown error"
+      );
+    }
   }
 };

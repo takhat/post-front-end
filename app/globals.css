@@ -61,7 +61,7 @@
     @apply max-w-[calc(100vw-2rem)] overflow-x-auto focus:outline-none
   }
   .active {
-    @apply bg-gray-300 text-black;
+    @apply bg-gray-400 text-black;
   }
   @media (max-width: 768px) {
     .stats {
