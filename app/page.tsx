@@ -35,7 +35,7 @@ export default async function Home() {
             The data presented here was obtained through public records requests
             from the Peace Officer Standards and Training (POST) database. The
             dataset contains information on police officer employment history,
-            including the officer's name, department, and employment dates.
+            including the officers name, department, and employment dates.
           </p>
         </div>
       </section>
