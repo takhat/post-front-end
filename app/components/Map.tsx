@@ -165,27 +165,14 @@ export const Map = ({ data, availableStates }: MapProps) => {
       />
       {selectedState in availableStates && (
         <div
-          style={{
-            position: "absolute",
-            top: "25px",
-            left: "30px",
-            background: "#fff",
-            padding: "10px",
-            borderRadius: "5px",
-            boxShadow: "2px 2px 5px rgba(0,0,0,0.3)",
-          }}
+          className="absolute bg-slate-100 px-2 py-2 shadow rounded 
+    "
         >
           <p>View police officer employment history data for {selectedState}</p>
           <button
             type="button"
-            className="button"
+            className="button rounded shadow bg-slate-300 px-1 py-1 text-white hover:bg-slate-400"
             onClick={handleNavigate}
-            style={{
-              backgroundColor: "#d1d5db",
-              color: "white",
-              border: "none",
-              padding: "5px 10px",
-            }}
           >
             Go to {selectedState}
           </button>

@@ -7,7 +7,7 @@
   overflow: hidden;
   font-family: "Poppins", sans-serif;
 } */
-x .tooltip {
+.tooltip {
   position: absolute;
   background-color: rgb(246, 255, 201);
   border: #fff;
@@ -18,23 +18,11 @@ x .tooltip {
   font-family: "Segoe UI";
 }
 
-/* h1 {
-  font-size: 1.5rem;
-  font-weight: 400;
-  color: #333;
-  font-family: "Segoe UI";
-} */
-
-/* :root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
-} */
-html,
 body {
   padding: 0;
   margin: 0;
   background-color: white;
+  font-family: "Segoe UI";
 }
 
 * {

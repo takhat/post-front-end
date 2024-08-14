@@ -13,7 +13,7 @@ const Nav = () => {
             href="/"
             className="text-lg font-semibold rounded-lg tracking-widest focus:outline-none focus:shadow-outline"
           >
-            <h1 className="text-2xl md:text-4xl Avenir tracking-tighter text-gray-900 ">
+            <h1 className="text-2xl md:text-4xl tracking-tighter text-gray-900">
               Police Officer Employment History
             </h1>
           </Link>

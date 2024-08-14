@@ -1,8 +1,8 @@
 import Link from "next/link";
 import { Map } from "./components/Map";
 import { fetchMapData } from "../lib/fetchMapData";
-import Footer from "./components/Footer";
 import Nav from "./components/Nav";
+import Footer from "./components/Footer";
 
 const availableStates: Record<string, string> = {
   Arizona: "AZ",
@@ -35,7 +35,7 @@ export default async function Home() {
             The data presented here was obtained through public records requests
             from the Peace Officer Standards and Training (POST) database. The
             dataset contains information on police officer employment history,
-            including the officers name, department, and employment dates.
+            including officer name, department, and employment dates.
           </p>
         </div>
       </section>
@@ -61,20 +61,3 @@ export default async function Home() {
     </main>
   );
 }
-
-/* <section className="mx-auto flex flex-col md:flex-row px-5 py-24 items-center">
-        <div className="flex-grow w-full max-w-7xl">
-          <Map data={data} availableStates={availableStates} />
-        </div>
-        <div className="w-full ">
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-            {Object.entries(availableStates).map(([state, abbreviation]) => (
-              <Link key={state} href={`/states/${abbreviation}`}>
-                <button className="w-40 h-10 rounded-md bg-white border border-gray-800 text-gray-800 text-sm font-segoe-ui hover:bg-gray-100 hover:border-gray-600 hover:text-gray-600">
-                  {state}
-                </button>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section> */
