@@ -2,102 +2,90 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer base {
-  /* Base styles */
-  * {
-    @apply box-border; /* Tailwind applies `box-sizing: border-box` */
-    margin: 0;
-    padding: 0;
-  }
+body {
+  @apply bg-dark-grey text-white text-center p-10;
+}
 
-  body {
-    @apply bg-dark-grey text-white text-center p-10;
-  }
+.title {
+  @apply text-xl my-5; /* Tailwind's spacing utilities */
+}
 
-  .title {
-    @apply text-xl my-5; /* Tailwind's spacing utilities */
-  }
+.stats {
+  @apply flex justify-around flex-wrap my-5;
+}
 
+#state,
+#agency,
+#sort-by {
+  @apply text-black;
+}
+
+.options-label {
+  @apply text-lg text-white;
+}
+
+.option {
+  @apply text-black;
+}
+
+.cards {
+  @apply flex flex-wrap justify-center items-center text-black;
+}
+
+.officer-card {
+  @apply bg-light-grey m-3 w-[300px] rounded-15 max-h-card overflow-auto;
+}
+
+.officer-name {
+  @apply sticky top-0 bg-light-grey;
+}
+
+.uid {
+  @apply sticky top-14 bg-light-grey;
+}
+
+.standout {
+  @apply font-semibold text-lg;
+}
+
+.agency-name {
+  @apply font-semibold;
+}
+
+.pagination {
+  @apply flex justify-center mt-4 items-center;
+}
+
+.btn {
+  @apply p-2 border border-gray-300 rounded-md hover:bg-gray-300 hover:text-black;
+}
+
+.page-link {
+  @apply mx-2 text-lg hover:underline;
+}
+
+.agency-select {
+  @apply max-w-[calc(100vw-2rem)] overflow-x-auto focus:outline-none;
+}
+
+.active {
+  @apply bg-gray-400 text-black;
+}
+
+.search-bar {
+  @apply border border-gray-300 p-2 rounded mb-2 w-full;
+}
+
+.search-bars {
+  @apply mb-4 space-y-2;
+}
+
+@media (max-width: 768px) {
   .stats {
-    @apply flex justify-around flex-wrap my-5;
+    @apply flex-col;
   }
+}
 
-  #state,
-  #agency,
-  #sort-by {
-    @apply text-black;
-  }
-
-  .options-label {
-    @apply text-lg text-white;
-  }
-
-  .option {
-    @apply text-black;
-  }
-
-  .cards {
-    @apply flex flex-wrap justify-center items-center text-black;
-  }
-
-  .officer-card {
-    @apply bg-light-grey m-3 w-[300px] rounded-15 max-h-card overflow-auto;
-  }
-
-  .officer-name {
-    @apply sticky top-0 bg-light-grey;
-  }
-
-  .uid {
-    @apply sticky top-14 bg-light-grey;
-  }
-
-  .standout {
-    @apply font-semibold text-lg;
-  }
-
-  .agency-name {
-    @apply font-semibold;
-  }
-
-  .pagination {
-    @apply flex justify-center mt-4 items-center;
-  }
-
-  .btn {
-    @apply p-2 border border-gray-300 rounded-md hover:bg-gray-300 hover:text-black;
-  }
-
-  .page-link {
-    @apply mx-2 text-lg hover:underline;
-  }
-
-  .agency-select {
-    @apply max-w-[calc(100vw-2rem)] overflow-x-auto focus:outline-none;
-  }
-
-  .active {
-    @apply bg-gray-400 text-black;
-  }
-
-  .search-bar {
-    @apply border border-gray-300 p-2 rounded mb-2 w-full;
-  }
-
-  .search-bars {
-    @apply mb-4 space-y-2;
-  }
-
-  @media (max-width: 768px) {
-    .stats {
-      @apply flex-col;
-    }
-  }
-/* body {
-  margin: 0;
-  overflow: hidden;
-  font-family: "Poppins", sans-serif;
-} */
 .tooltip {
   position: absolute;
   background-color: rgb(246, 255, 201);
