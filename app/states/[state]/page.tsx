@@ -8,7 +8,7 @@ import {
 } from "../../../data/officersData";
 import { PeaceOfficer, Agency } from "../../../data/officersData";
 import OfficerList from "../../components/OfficerList";
-import Pagination from "../../components/Pagination"; // Import the Pagination component
+import Pagination from "../../components/Pagination";
 
 const StatePage = () => {
   const router = useRouter();

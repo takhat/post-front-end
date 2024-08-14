@@ -67,7 +67,11 @@ export const getOfficersByAgency = async (
   agencyName: string,
   page: number,
   perPage: number,
-  sortBy: string
+  sortBy: string,
+  firstName: string,
+  lastName: string,
+  uid: string,
+  agency: string
 ): Promise<{ officers: PeaceOfficer[]; totalItems: number }> => {
   try {
     const data = await fetchOfficersData(state);
