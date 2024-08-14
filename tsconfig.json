@@ -1,18 +1,17 @@
 {
   "compilerOptions": {
     "lib": ["dom", "dom.iterable", "esnext"],
-    "allowJs": true,
-    "skipLibCheck": true,
-    "strict": true,
-    "noEmit": true,
-    "esModuleInterop": true,
-    "module": "ESNext", // Use ESNext for modern module resolution
-    "moduleResolution": "node", // Adjusted to node for compatibility
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "jsx": "preserve",
-    "incremental": true,
-    "types": ["jest", "@testing-library/jest-dom"],
+    "allowJs": true, // Allows JavaScript files to be compiled
+    "skipLibCheck": true, // Skips type checking of declaration files
+    "strict": true, // Enables strict type checking
+    "noEmit": true, // Does not emit any output
+    "esModuleInterop": true, // Enables compatibility with CommonJS modules
+    "module": "esnext", // Uses the latest module system
+    "moduleResolution": "node", // Resolves modules like Node.js
+    "resolveJsonModule": true, // Allows importing JSON modules
+    "isolatedModules": true, // Ensures each file can be safely transpiled independently
+    "jsx": "preserve", // Preserves JSX syntax for further processing
+    "incremental": true, // Enables incremental compilation for faster builds
     "plugins": [
       {
         "name": "next"
@@ -20,7 +19,8 @@
     ],
     "paths": {
       "@/*": ["./*"]
-    }
+    },
+    "types": ["jest", "@testing-library/jest-dom"]
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
   "exclude": ["node_modules", "cypress.config.ts"]

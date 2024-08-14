@@ -5,8 +5,9 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Police Officer Employment History",
-  description: "A database of police officer employment history",
+  title: "Peace Officer Employment History",
+  description:
+    "View Peace Officer Employment History by State, Agency and more",
 };
 
 export default function RootLayout({
