@@ -19,57 +19,75 @@
   }
 
   .stats {
-    @apply flex justify-around flex-wrap  my-5;
+    @apply flex justify-around flex-wrap my-5;
   }
-  #state, #agency, #sort-by{
+
+  #state,
+  #agency,
+  #sort-by {
     @apply text-black;
   }
+
   .options-label {
     @apply text-lg text-white;
   }
-  .option{
+
+  .option {
     @apply text-black;
   }
+
   .cards {
     @apply flex flex-wrap justify-center items-center text-black;
   }
+
   .officer-card {
     @apply bg-light-grey m-3 w-[300px] rounded-15 max-h-card overflow-auto;
   }
+
   .officer-name {
     @apply sticky top-0 bg-light-grey;
   }
+
   .uid {
     @apply sticky top-14 bg-light-grey;
   }
-  .standout{
+
+  .standout {
     @apply font-semibold text-lg;
   }
-  .agency-name{
+
+  .agency-name {
     @apply font-semibold;
   }
-  .pagination{
+
+  .pagination {
     @apply flex justify-center mt-4 items-center;
   }
-  .btn{
+
+  .btn {
     @apply p-2 border border-gray-300 rounded-md hover:bg-gray-300 hover:text-black;
   }
-  .page-link{
+
+  .page-link {
     @apply mx-2 text-lg hover:underline;
   }
+
   .agency-select {
-    @apply max-w-[calc(100vw-2rem)] overflow-x-auto focus:outline-none
+    @apply max-w-[calc(100vw-2rem)] overflow-x-auto focus:outline-none;
   }
+
   .active {
     @apply bg-gray-400 text-black;
   }
+
   .search-bar {
     @apply border border-gray-300 p-2 rounded mb-2 w-full;
   }
-  
+
   .search-bars {
     @apply mb-4 space-y-2;
   }
+
   @media (max-width: 768px) {
     .stats {
       @apply flex-col;

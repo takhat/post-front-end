@@ -68,7 +68,11 @@ const StatePage = () => {
         agency,
         page,
         perPage,
-        sortBy
+        sortBy,
+        "",
+        "",
+        "",
+        ""
       );
       setOfficers(officers);
       setTotalItems(totalItems);
