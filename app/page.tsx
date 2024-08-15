@@ -42,9 +42,9 @@ export default async function Home() {
       <section className="mx-auto">
         <div className="container px-5 mx-auto lg:px-24 ">
           <div className="flex flex-col w-full mb-4 text-left lg:text-center">
-            <h1 className="mb-8 text-xl font-semibold ">
+            {/* <h1 className="mb-8 text-xl font-semibold ">
               View data from any of the following states:
-            </h1>
+            </h1> */}
           </div>
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
             {Object.entries(availableStates).map(([state, abbreviation]) => (

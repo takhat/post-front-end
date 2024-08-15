@@ -7,16 +7,12 @@ import path from "path";
 
 export async function fetchMapData() {
   try {
-    // Get the path to the data file
     const filePath = path.join(process.cwd(), "data", "states.json");
 
-    // Read the file contents
     const fileContents = await fs.readFile(filePath, "utf-8");
 
-    // Parse the file contents as JSON
     const topology = JSON.parse(fileContents) as Topology;
 
-    // Extract and process the data as needed
     const { states } = topology.objects as {
       states: GeometryCollection<GeometryObject>;
     };

@@ -147,6 +147,7 @@ const StatePage = () => {
             id="state"
             value={stateCode}
             onChange={handleStateChange}
+            className="bg-light-grey rounded-sm"
           >
             {sortedStates.map((state) => (
               <option key={state.value} value={state.value}>
@@ -164,7 +165,7 @@ const StatePage = () => {
             name="agency"
             id="agency"
             value={agency}
-            className="agency-select"
+            className="agency-select bg-light-grey rounded-sm"
             onChange={handleAgencyChange}
           >
             <option value="all">All</option>
@@ -185,6 +186,7 @@ const StatePage = () => {
             id="sort-by"
             value={sortBy}
             onChange={handleSortChange}
+            className="bg-light-grey rounded-sm"
           >
             {sortedSortOptions.map((option) => (
               <option key={option.value} value={option.value}>

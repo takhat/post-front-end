@@ -7,7 +7,7 @@ export default function Footer() {
             <li>
               <a
                 href="/"
-                className="text-mdtransition-colors duration-300 hover:text-deep-purple-accent-400 font-semibold"
+                className="text-mdtransition-colors duration-300 hover:text-purple-950 font-semibold"
               >
                 Terms of Service
               </a>
@@ -16,7 +16,7 @@ export default function Footer() {
             <li>
               <a
                 href="/"
-                className="text-md transition-colors duration-300 hover:text-deep-purple-accent-400 font-semibold"
+                className="text-md transition-colors duration-300 hover:text-purple-950 font-semibold"
               >
                 Partners
               </a>
@@ -25,7 +25,7 @@ export default function Footer() {
           <ul className="flex flex-col mb-3 space-y-2 lg:mb-0 sm:space-y-0 sm:space-x-5 sm:flex-row">
             <a
               href="/"
-              className="text-md transition-colors duration-300 hover:text-deep-purple-accent-400 font-semibold tracking-tight"
+              className="text-md transition-colors duration-300 hover:text-purple-950 font-semibold tracking-tight"
             >
               © 2024 POST Dataset
             </a>

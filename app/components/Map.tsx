@@ -41,7 +41,7 @@ export const Map = ({ data, availableStates }: MapProps) => {
     // Create svg element
     const svg = d3.select(svgRef.current);
 
-    // Create tooltip background (rect) and text
+    // Create tooltip background and text
     const tooltipBg = svg
       .append("rect")
       .attr("class", "tooltip-bg")
@@ -78,7 +78,6 @@ export const Map = ({ data, availableStates }: MapProps) => {
           .text(feature.properties?.name)
           .style("visibility", "visible");
 
-        // Get text bounding box and adjust the background rect
         const tooltipNode = tooltip.node();
         if (tooltipNode) {
           const bbox = tooltipNode.getBBox();
@@ -104,10 +103,8 @@ export const Map = ({ data, availableStates }: MapProps) => {
       .on("mousemove", (event) => {
         const [mx, my] = d3.pointer(event);
 
-        // Update text position
         tooltip.attr("x", mx + 20).attr("y", my + 20);
 
-        // Get updated text bounding box and adjust the background rect
         const tooltipNode = tooltip.node();
         if (tooltipNode) {
           const bbox = tooltipNode.getBBox();
@@ -168,7 +165,7 @@ export const Map = ({ data, availableStates }: MapProps) => {
       />
       {selectedState in availableStates && (
         <button
-          className="button text-sm absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white hover:bg-gray-100 dark:bg-slate-800 bg-opacity-80 px-4 py-2 dark:text-white rounded-md dark:hover:bg-opacity-100"
+          className="button text-sm border border-black absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white bg-opacity-80 hover:bg-gray-100 dark:bg-slate-800  dark:bg-opacity-75 px-4 py-2 rounded-md dark:hover:bg-opacity-100"
           onClick={handleNavigate}
         >
           View Data for {selectedState}
