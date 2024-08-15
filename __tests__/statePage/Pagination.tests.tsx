@@ -1,7 +1,7 @@
 import React from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import "@testing-library/jest-dom";
-import Pagination from "../app/components/Pagination"; // Adjust the import path accordingly
+import Pagination from "../../app/components/Pagination"; // Adjust the import path accordingly
 
 describe("Pagination Component", () => {
   test("renders pagination with correct number of pages", () => {

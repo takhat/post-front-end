@@ -1,8 +1,8 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
-import OfficerList from "../app/components/OfficerList";
-import { PeaceOfficer } from "../data/officersData";
+import OfficerList from "../../app/components/OfficerList";
+import { PeaceOfficer } from "../../data/officersData";
 
 describe("OfficerList", () => {
   const mockOfficers: PeaceOfficer[] = [

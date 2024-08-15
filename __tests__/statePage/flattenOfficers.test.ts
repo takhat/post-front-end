@@ -3,7 +3,7 @@ import {
   Agency,
   PeaceOfficer,
   WorkHistory,
-} from "../data/officersData";
+} from "../../data/officersData";
 
 describe("flattenOfficers", () => {
   it("should correctly flatten and aggregate officers from multiple agencies", () => {

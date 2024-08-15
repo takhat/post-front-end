@@ -2,10 +2,10 @@ import {
   getOfficersByAgency,
   flattenOfficers,
   fetchOfficersData,
-} from "../data/officersData";
+} from "../../data/officersData";
 
 // Jest module mock
-jest.mock("../data/officersData", () => ({
+jest.mock("../../data/officersData", () => ({
   getOfficersByAgency: jest.fn(),
   flattenOfficers: jest.fn(),
   fetchOfficersData: jest.fn(),

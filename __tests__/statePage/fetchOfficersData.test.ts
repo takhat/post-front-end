@@ -1,6 +1,6 @@
 import axios from "axios";
-import { fetchOfficersData } from "../data/officersData";
-import { Agency } from "../data/officersData";
+import { fetchOfficersData } from "../../data/officersData";
+import { Agency } from "../../data/officersData";
 
 jest.mock("axios");
 const mockedAxios = axios as jest.Mocked<typeof axios>;
