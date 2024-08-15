@@ -9,6 +9,7 @@ import {
 import { PeaceOfficer, Agency } from "../../../data/officersData";
 import OfficerList from "../../components/OfficerList";
 import Pagination from "../../components/Pagination";
+import Link from "next/link";
 
 const StatePage = () => {
   const router = useRouter();
@@ -135,8 +136,7 @@ const StatePage = () => {
   if (error) return <p>{error}</p>;
 
   return (
-    <div>
-      <h1 className="title">Peace Officer Employment History</h1>
+    <div className="text-center p-10">
       <div className="stats options-label">
         <div>
           <label className="options-label" htmlFor="state">
@@ -147,6 +147,7 @@ const StatePage = () => {
             id="state"
             value={stateCode}
             onChange={handleStateChange}
+            className="bg-light-grey rounded-sm"
           >
             {sortedStates.map((state) => (
               <option key={state.value} value={state.value}>
@@ -164,7 +165,7 @@ const StatePage = () => {
             name="agency"
             id="agency"
             value={agency}
-            className="agency-select"
+            className="agency-select bg-light-grey rounded-sm"
             onChange={handleAgencyChange}
           >
             <option value="all">All</option>
@@ -185,6 +186,7 @@ const StatePage = () => {
             id="sort-by"
             value={sortBy}
             onChange={handleSortChange}
+            className="bg-light-grey rounded-sm"
           >
             {sortedSortOptions.map((option) => (
               <option key={option.value} value={option.value}>
