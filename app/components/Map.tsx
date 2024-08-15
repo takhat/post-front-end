@@ -1,10 +1,12 @@
 "use client";
+
 import React, { useState, useEffect, useRef } from "react";
 import { geoPath, geoAlbersUsa } from "d3-geo";
 import { FeatureCollection, MultiLineString, Geometry } from "geojson";
 import * as d3 from "d3";
 import { useRouter } from "next/navigation";
 import colors from "@/styles/colors";
+import { useTheme } from "next-themes";
 
 const projection = geoAlbersUsa();
 const path = geoPath(projection);
@@ -21,11 +23,11 @@ export const Map = ({ data, availableStates }: MapProps) => {
   const router = useRouter();
   const svgRef = useRef<SVGSVGElement | null>(null);
   const [selectedState, setSelectedState] = useState<string>("");
-  const projection = geoAlbersUsa();
-  const pathGenerator = geoPath(projection);
+  const { resolvedTheme } = useTheme();
+  const themeColors = colors[resolvedTheme || "light"]; // Default to "light" if resolvedTheme is not available
 
-  // calculate viewBox
-  const bounds = pathGenerator.bounds(data.land);
+  // Calculate viewBox
+  const bounds = path.bounds(data.land);
   const padding = 20;
   const dx = bounds[1][0] - bounds[0][0] + padding;
   const dy = bounds[1][1] - bounds[0][1] + padding;
@@ -43,8 +45,8 @@ export const Map = ({ data, availableStates }: MapProps) => {
     const tooltipBg = svg
       .append("rect")
       .attr("class", "tooltip-bg")
-      .attr("fill", "rgba(255, 255, 255, 0.8)") // semi-transparent white background
-      .attr("stroke", "black") // border color
+      .attr("fill", "rgba(255, 255, 255, 0.8)")
+      .attr("stroke", "black")
       .style("visibility", "hidden");
 
     const tooltip = svg
@@ -63,10 +65,10 @@ export const Map = ({ data, availableStates }: MapProps) => {
       .attr("d", (feature) => path(feature)!)
       .attr("fill", (feature) =>
         availableStates[feature.properties?.name]
-          ? colors.stateWithData
-          : colors.defaultStateFill
+          ? themeColors.stateWithData
+          : themeColors.defaultStateFill
       )
-      .attr("stroke", colors.stateBorder)
+      .attr("stroke", themeColors.stateBorder)
       .attr("stroke-width", "1")
       .on("mouseover", (event, feature) => {
         const [mx, my] = d3.pointer(event);
@@ -89,14 +91,14 @@ export const Map = ({ data, availableStates }: MapProps) => {
         }
 
         if (availableStates[feature.properties?.name]) {
-          d3.select(event.target).attr("fill", colors.hoverState);
+          d3.select(event.target).attr("fill", themeColors.hoverState);
         }
       })
       .on("mouseout", (event, feature) => {
         tooltip.style("visibility", "hidden");
         tooltipBg.style("visibility", "hidden");
         if (availableStates[feature.properties?.name]) {
-          d3.select(event.target).attr("fill", colors.stateWithData);
+          d3.select(event.target).attr("fill", themeColors.stateWithData);
         }
       })
       .on("mousemove", (event) => {
@@ -117,7 +119,8 @@ export const Map = ({ data, availableStates }: MapProps) => {
         }
       })
       .on("click", (event, feature) => {
-        setSelectedState(feature.properties?.name);
+        const stateName = feature.properties?.name;
+        setSelectedState(selectedState === stateName ? "" : stateName);
       })
       .transition();
 
@@ -133,7 +136,7 @@ export const Map = ({ data, availableStates }: MapProps) => {
       tooltip.remove();
       tooltipBg.remove();
     };
-  }, [data, selectedState, availableStates]);
+  }, [data, selectedState, availableStates, themeColors]);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -157,28 +160,22 @@ export const Map = ({ data, availableStates }: MapProps) => {
   };
 
   return (
-    <div>
+    <div className="relative">
       <svg
         className="h-full w-full cursor-pointer"
         ref={svgRef}
         viewBox={viewBox}
       />
       {selectedState in availableStates && (
-        <div
-          className="absolute bg-slate-100 px-2 py-2 shadow rounded 
-    "
+        <button
+          className="button text-sm absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white hover:bg-gray-100 dark:bg-slate-800 bg-opacity-80 px-4 py-2 dark:text-white rounded-md dark:hover:bg-opacity-100"
+          onClick={handleNavigate}
         >
-          <p>View police officer employment history data for {selectedState}</p>
-          <button
-            type="button"
-            className="button rounded shadow bg-slate-300 px-1 py-1 text-white hover:bg-slate-400"
-            onClick={handleNavigate}
-          >
-            Go to {selectedState}
-          </button>
-        </div>
+          View Data for {selectedState}
+        </button>
       )}
     </div>
   );
 };
+
 export default Map;

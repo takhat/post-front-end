@@ -2,12 +2,16 @@
 @tailwind components;
 @tailwind utilities;
 
+* {
+  @apply box-border;
+}
+
 body {
-  @apply bg-dark-grey text-white text-center p-10;
+  @apply dark:bg-dark-grey dark:text-white;
 }
 
 .title {
-  @apply text-xl my-5; /* Tailwind's spacing utilities */
+  @apply text-xl my-5;
 }
 
 .stats {
@@ -21,7 +25,7 @@ body {
 }
 
 .options-label {
-  @apply text-lg text-white;
+  @apply text-lg dark:text-white;
 }
 
 .option {
@@ -95,20 +99,4 @@ body {
   border-radius: 3px;
   box-shadow: 2px 2px 2px rgb(200, 205, 176);
   font-family: "Segoe UI";
-}
-
-body {
-  padding: 0;
-  margin: 0;
-  background-color: white;
-  font-family: "Segoe UI";
-}
-
-* {
-  box-sizing: border-box;
-}
-
-.clearNav {
-  backdrop-filter: saturate(180%) blur(5px) !important;
-  background-color: rgba(255, 255, 255, 0.6) !important;
 }

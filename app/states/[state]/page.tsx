@@ -9,6 +9,7 @@ import {
 import { PeaceOfficer, Agency } from "../../../data/officersData";
 import OfficerList from "../../components/OfficerList";
 import Pagination from "../../components/Pagination";
+import Link from "next/link";
 
 const StatePage = () => {
   const router = useRouter();
@@ -135,8 +136,7 @@ const StatePage = () => {
   if (error) return <p>{error}</p>;
 
   return (
-    <div>
-      <h1 className="title">Peace Officer Employment History</h1>
+    <div className="text-center p-10">
       <div className="stats options-label">
         <div>
           <label className="options-label" htmlFor="state">
