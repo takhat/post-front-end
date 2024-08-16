@@ -43,7 +43,7 @@ body {
 }
 
 .officer-card {
-  @apply bg-light-grey m-3 w-[300px] rounded-15 max-h-card overflow-auto text-black pl-1 pr-1;
+  @apply bg-light-grey m-3 w-[300px] rounded-15 max-h-card overflow-auto text-black pl-2 pr-2;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 6px 20px rgba(0, 0, 0, 0.1);
   transition: box-shadow 0.3s ease;
 }
