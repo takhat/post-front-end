@@ -137,6 +137,7 @@ const StatePage = () => {
 
   return (
     <div className="text-center p-10">
+      <br/>
       <div className="stats options-label">
         <div>
           <label className="options-label" htmlFor="state">
@@ -147,7 +148,7 @@ const StatePage = () => {
             id="state"
             value={stateCode}
             onChange={handleStateChange}
-            className="bg-light-grey rounded-sm"
+            className="dropdown"
           >
             {sortedStates.map((state) => (
               <option key={state.value} value={state.value}>
@@ -165,7 +166,7 @@ const StatePage = () => {
             name="agency"
             id="agency"
             value={agency}
-            className="agency-select bg-light-grey rounded-sm"
+            className="agency-select dropdown"
             onChange={handleAgencyChange}
           >
             <option value="all">All</option>
@@ -186,7 +187,7 @@ const StatePage = () => {
             id="sort-by"
             value={sortBy}
             onChange={handleSortChange}
-            className="bg-light-grey rounded-sm"
+            className="dropdown"
           >
             {sortedSortOptions.map((option) => (
               <option key={option.value} value={option.value}>
@@ -200,7 +201,8 @@ const StatePage = () => {
       <div className="cards">
         <OfficerList officers={officers} />
       </div>
-
+      <br/>
+      
       <Pagination
         currentPage={currentPage}
         totalPages={totalPages}
